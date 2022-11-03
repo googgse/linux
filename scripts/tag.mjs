@@ -7,7 +7,7 @@ async function main() {
   const rl = readline.createInterface({ input, output });
   // control flow
   for (; ;) {
-    const tag = await rl.question('Please input your tag: ');
+    const tag = await rl.question('Please input your tag (v1.0.0): ');
     // control flow
     if (tag.startsWith('v')) {
       break
