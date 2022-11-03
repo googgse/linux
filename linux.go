@@ -3,8 +3,8 @@ package linux
 import (
 	// import built-in packages
 	"os"
-	"regexp"
 	"runtime"
+	"strings"
 
 	// import third-party packages
 	"github.com/googgse/path"
@@ -33,11 +33,6 @@ func Release() string {
 		return "centos"
 	}
 	bytes, err := os.ReadFile("/etc/issue")
-	regDebian := regexp.MustCompile(`(?i)(^|([\s\t\n]+))(debian)($|([\s\t\n]+))`)
-	regUbuntu := regexp.MustCompile(`(?i)(^|([\s\t\n]+))(ubuntu)($|([\s\t\n]+))`)
-	regCentos := regexp.MustCompile(`(?i)(^|([\s\t\n]+))(centos)($|([\s\t\n]+))`)
-	regRedHat := regexp.MustCompile(`(?i)(^|([\s\t\n]+))(redhat)($|([\s\t\n]+))`)
-	regRedHat2 := regexp.MustCompile(`(?i)(^|([\s\t\n]+))(red hat)($|([\s\t\n]+))`)
 	// control flow
 	if err != nil {
 		bytes, err := os.ReadFile("/proc/version")
@@ -45,34 +40,49 @@ func Release() string {
 		if err != nil {
 			// return value
 			return "unknown"
-		} else if regDebian.MatchString(string(bytes)) {
+		} else if strings.Contains(strings.ToLower(string(bytes)), "debian") {
 			// return value
 			return "debian"
-		} else if regUbuntu.MatchString(string(bytes)) {
+		} else if strings.Contains(strings.ToLower(string(bytes)), "ubuntu") {
 			// return value
 			return "ubuntu"
-		} else if regCentos.MatchString(string(bytes)) {
+		} else if strings.Contains(strings.ToLower(string(bytes)), "centos") {
 			// return value
 			return "centos"
-		} else if regRedHat.MatchString(string(bytes)) {
+		} else if strings.Contains(strings.ToLower(string(bytes)), "redhat") {
 			// return value
 			return "redhat"
-		} else if regRedHat2.MatchString(string(bytes)) {
+		} else if strings.Contains(strings.ToLower(string(bytes)), "red hat") {
 			// return value
 			return "redhat"
+		} else if strings.Contains(strings.ToLower(string(bytes)), "suse") {
+			// return value
+			return "suse"
+		} else if strings.Contains(strings.ToLower(string(bytes)), "kail") {
+			// return value
+			return "kail"
 		}
-	} else if regUbuntu.MatchString(string(bytes)) {
+	} else if strings.Contains(strings.ToLower(string(bytes)), "debian") {
+		// return value
+		return "debian"
+	} else if strings.Contains(strings.ToLower(string(bytes)), "ubuntu") {
 		// return value
 		return "ubuntu"
-	} else if regCentos.MatchString(string(bytes)) {
+	} else if strings.Contains(strings.ToLower(string(bytes)), "centos") {
 		// return value
 		return "centos"
-	} else if regRedHat.MatchString(string(bytes)) {
+	} else if strings.Contains(strings.ToLower(string(bytes)), "redhat") {
 		// return value
 		return "redhat"
-	} else if regRedHat2.MatchString(string(bytes)) {
+	} else if strings.Contains(strings.ToLower(string(bytes)), "red hat") {
 		// return value
 		return "redhat"
+	} else if strings.Contains(strings.ToLower(string(bytes)), "suse") {
+		// return value
+		return "suse"
+	} else if strings.Contains(strings.ToLower(string(bytes)), "kail") {
+		// return value
+		return "kail"
 	}
 	// return value
 	return "unknown"
