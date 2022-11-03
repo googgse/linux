@@ -13,10 +13,17 @@ async function main() {
       break
     }
   }
-  const confirm = await rl.question(`If you wanna tag v${tag}? (Y/n)`);
+  const confirm = await rl.question(`Do you wanna tag v${tag}? (Y/n)`);
   // control flow
   if (confirm === 'Y' || confirm === 'y') {
     childProcess.exec(`git tag -a v${tag} -m 'Release v${tag}'`)
+  } else {
+    process.exit()
+  }
+  const comfirm2 = await rl.question('Do you wanna push the tag? :(Y/n)');
+  // control flow
+  if (confirm === 'Y' || confirm === 'y') {
+    childProcess.exec(`git push --tag`)
   } else {
     process.exit()
   }
